@@ -16,7 +16,7 @@ class Side{
   drawRight(){
     this.ctx.beginPath();
     this.ctx.moveTo(7/8*this.canv.width,this.canv.height);
-    this.ctx.lineTo(5/8*this.canv.width,0);
+    this.ctx.lineTo(5/8*this.canv.width ,0);
     this.ctx.stroke();
   }
 

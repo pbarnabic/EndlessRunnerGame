@@ -1,49 +1,68 @@
 import Ship from "./ship.js";
 import Obstacle from "./obstacle.js";
 import Side from "./side.js";
+import Scorebox from "./scorebox.js";
+import Menu from "./menu.js";
+
 class Game{
 
   constructor(){
 
     this.canv = document.getElementById("gameCanvas");
     this.ctx = this.canv.getContext("2d");
+    this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+
     this.ship = new Ship(this.canv,this.ctx);
+    this.scoreBox = new Scorebox(this.canv, this.ctx);
     this.obstacles = [];
     this.side = new Side(this.canv,this.ctx);
+    this.menu = new Menu(this.canv,this.ctx);
+
     this.keyDown = this.keyDown.bind(this);
     this.update = this.update.bind(this);
     this.createNewObstacles = this.createNewObstacles.bind(this);
+    this.play = this.play.bind(this);
+
     this.counter = 0;
     this.hasCollided = this.hasCollided.bind(this);
-    this.isOver = false;
+    this.handleCollision = this.handleCollision.bind(this);
+    this.isOver = true;
+    this.interval = null;
 
     document.addEventListener("keydown", this.keyDown);
-
-
-    this.play();
-
+    this.menu.draw();
   }
 
   play(){
-    setInterval(this.update, 1000 / 60);
+    this.counter = 0;
+    this.obstacles = [];
+    this.interval = setInterval(this.update, 1000 / 60);
+    this.scoreBox.updateScore(this.counter);
   }
 
   keyDown(e){
-    this.ship.move(e);
+    if (this.isOver){
+      this.isOver = false;
+      this.play();
+
+    }else{
+      this.ship.move(e);
+    }
   }
 
 
   update(){
-
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
-    this.side.drawLeft();
-    this.side.drawRight();
-    this.ship.draw();
     if(!this.isOver){
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+      this.side.drawLeft();
+      this.side.drawRight();
+      this.ship.draw();
+      this.scoreBox.draw();
+
       for(var i = this.obstacles.length - 1; i >= 0; i --){
         if(this.hasCollided(this.obstacles[i])){
-          this.isOver = true;
+          this.handleCollision();
           break;
         }
         if(this.obstacles[i].isOffscreen()){
@@ -57,6 +76,7 @@ class Game{
         this.createNewObstacles();
       }
       this.counter += 1;
+      this.scoreBox.updateScore(this.counter);
       console.log(this.counter);
     }
   }
@@ -66,9 +86,9 @@ class Game{
     if(this.counter > 500){
       speed = 9;
     }else if(this.counter > 1500){
-      speed = 12;
+      speed = 18;
     }else if(this.counter > 3000){
-      speed = 15;
+      speed = 21;
     }else{
       speed = 9;
     }
@@ -84,10 +104,18 @@ class Game{
     return false;
   }
 
+  handleCollision(){
+    this.isOver = true;
+    this.menu.draw();
+    console.log(this.interval);
+    clearInterval(this.interval);
+
+
+  }
+
   calcDistance(ob1,ob2){
     return Math.sqrt(Math.pow(ob1.x - ob2.x, 2) + Math.pow(ob1.y - ob2.y,2));
   }
-
 
 }
 

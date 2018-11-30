@@ -5,10 +5,9 @@ class Obstacle{
     this.ctx = ctx;
     //Math.floor(Math.random()*(max-min+1)+min) generates a random number between x and y
     this.w = Math.floor(Math.random()*(10)+20);
-    // this.w = Math.floor(Math.random()*(80)+20);
     this.h = 40;
     this.leftWall = 360;
-    this.leftWallOffset = Math.floor(Math.random()*(80))
+    this.leftWallOffset = Math.floor(Math.random()*(240))
     this.x = this.leftWall + this.leftWallOffset;
     this.y = 0;
     this.multiplier = this.findMultiplier();
@@ -17,11 +16,12 @@ class Obstacle{
   }
 
   move(){
-    this.y += this.speed * this.canv.height/this.canv.width;
-    this.leftWall *= this.multiplier;
-    this.x = this.leftWall + this.leftWallOffset;
-    this.w += 1;
-    this.h += 1/4;
+    this.y += this.speed * this.canv.width/this.canv.height;
+    this.x += this.speed * this.canv.width/this.canv.height;
+    this.leftWall += (7/8)/60;
+    this.x = +this.leftWall + this.leftWallOffset;
+    this.w += 1/3;
+    this.h += 1/3;
   }
 
   draw(){
@@ -32,7 +32,7 @@ class Obstacle{
   }
 
   isOffscreen(){
-    if (this.y > this.canv.height){
+    if (this.y > this.canv.height + this.w){
       return true
     }else{
       return false;

@@ -36,13 +36,13 @@ class Ship{
   }
 
   moveLeft(){
-    if(this.x > 0 + this.s + 10){
-      this.x = this.x - 40;
+    if(this.x > 0 + this.s + 10 && this.x > this.canv.width * 1/8 + 60){
+      this.x -= 60;
     }
   }
   moveRight(){
-    if(this.x < this.canv.width - this.s -  10){
-      this.x = this.x + 40;
+    if(this.x < this.canv.width - this.s -  10 && this.x < this.canv.width * 7/8 - 60){
+      this.x += 60;
     }
   }
 
