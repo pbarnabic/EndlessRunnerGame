@@ -32,6 +32,7 @@ class Ship{
     );
     this.ctx.closePath();
     this.ctx.stroke();
+
   }
 
   moveLeft(){
