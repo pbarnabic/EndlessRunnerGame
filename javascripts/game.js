@@ -1,5 +1,6 @@
 import Ship from "./ship.js";
 import Obstacle from "./obstacle.js";
+import Side from "./side.js";
 class Game{
 
   constructor(){
@@ -8,6 +9,7 @@ class Game{
     this.ctx = this.canv.getContext("2d");
     this.ship = new Ship(this.canv,this.ctx);
     this.obstacle = new Obstacle(this.canv,this.ctx);
+    this.side = new Side(this.canv,this.ctx);
     this.keyDown = this.keyDown.bind(this);
     this.keyUp = this.keyUp.bind(this);
     this.update = this.update.bind(this);
@@ -36,7 +38,12 @@ class Game{
   update(){
     this.ctx.fillStyle = "black";
     this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+    this.ctx.strokeStyle = "red";
+    this.side.drawLeft();
+    this.side.drawRight();
     this.ship.draw();
+    this.ctx.strokeStyle = "blue";
+    this.obstacle.move();
     this.obstacle.draw();
   }
 

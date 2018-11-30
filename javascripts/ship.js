@@ -12,7 +12,7 @@ class Ship{
   }
 
   draw(){
-    this.ctx.strokeStyle = "red",
+    this.ctx.strokeStyle = "orange",
     this.ctx.lineWidth = 50 / 20;
 
     this.ctx.beginPath();
@@ -36,12 +36,12 @@ class Ship{
 
   moveLeft(){
     if(this.x > 0 + this.s + 10){
-      this.x = this.x - 10;
+      this.x = this.x - 30;
     }
   }
   moveRight(){
     if(this.x < this.canv.width - this.s -  10){
-      this.x = this.x + 10;
+      this.x = this.x + 30;
     }
   }
 
