@@ -1,9 +1,18 @@
-/* #gameCanvas{
-  transform: perspective(10px) rotateX(20deg);
-
-}
-
-#random-div{
+#alignment-div{
   display: flex;
   justify-content: center;
-} */
+}
+
+body{
+  background-image: url(../assets/magellanic-clouds.png);
+}
+
+#gameCanvas{
+  opacity: .7;
+}
+
+h1{
+  font-family: 'Russo One', sans-serif;
+  color: yellow;
+  padding-left: 80px;
+}

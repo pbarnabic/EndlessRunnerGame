@@ -3,6 +3,7 @@ import Obstacle from "./obstacle.js";
 import Side from "./side.js";
 import Scorebox from "./scorebox.js";
 import Menu from "./menu.js";
+import RoadLine from "./roadLines.js";
 
 class Game{
 
@@ -17,6 +18,7 @@ class Game{
     this.obstacles = [];
     this.side = new Side(this.canv,this.ctx);
     this.menu = new Menu(this.canv,this.ctx);
+    this.roadLine = new RoadLine(this.canv,this.ctx);
 
     this.keyDown = this.keyDown.bind(this);
     this.update = this.update.bind(this);
@@ -59,6 +61,10 @@ class Game{
       this.side.drawRight();
       this.ship.draw();
       this.scoreBox.draw();
+      this.roadLine.draw();
+      this.roadLine.move();
+      this.side.drawInnerLeft();
+      this.side.drawInnerRight();
 
       for(var i = this.obstacles.length - 1; i >= 0; i --){
         if(this.hasCollided(this.obstacles[i])){
@@ -77,7 +83,6 @@ class Game{
       }
       this.counter += 1;
       this.scoreBox.updateScore(this.counter);
-      console.log(this.counter);
     }
   }
 
@@ -92,7 +97,7 @@ class Game{
     }else{
       speed = 9;
     }
-    let obstacle = new Obstacle(this.canv,this.ctx,speed);
+    let obstacle = new Obstacle(this.canv,this.ctx,speed,this.obstacles.length);
     this.obstacles.push(obstacle);
   }
 
