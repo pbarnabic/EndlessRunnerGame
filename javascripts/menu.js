@@ -8,10 +8,10 @@ class Menu{
   draw(){
     this.ctx.strokeStyle = "red"
     this.ctx.font = "30px Arial";
-    this.ctx.strokeText("Be Fast! Be Quick!",this.canv.width / 3 + 60,this.canv.height / 3);
+    this.ctx.strokeText("Star Runner!",this.canv.width / 3 + 80,this.canv.height / 3);
 
     this.ctx.font = "20px Arial";
-    this.ctx.strokeText("Press Any Key to Start!",this.canv.width / 3 + 80, 2 * this.canv.height / 3);
+    this.ctx.strokeText("Press Any Key to Start!",this.canv.width / 3 + 65, 2 * this.canv.height / 3);
   }
 }
 

@@ -4,7 +4,8 @@
 }
 
 body{
-  background-image: url(../assets/magellanic-clouds.png);
+  background:url(../assets/magellanic-clouds.png) no-repeat center center fixed;
+  background-size: cover;
 }
 
 #gameCanvas{
@@ -15,4 +16,19 @@ h1{
   font-family: 'Russo One', sans-serif;
   color: yellow;
   padding-left: 80px;
+}
+
+.icons{
+  display: flex;
+  padding-top: 30px;
+  justify-content: center;
+}
+
+.icons img{
+  background-color: yellow;
+  border-radius: 15px;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  padding: 1px;
 }

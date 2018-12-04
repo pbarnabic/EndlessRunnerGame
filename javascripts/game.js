@@ -112,7 +112,6 @@ class Game{
   handleCollision(){
     this.isOver = true;
     this.menu.draw();
-    console.log(this.interval);
     clearInterval(this.interval);
 
 
