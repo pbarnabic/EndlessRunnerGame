@@ -108,7 +108,7 @@ The main class, the Game class, upon its initialization grabs the canvas element
   
   ```move``` works slightly differently in the obstacles and the RoadLine, but the all it does is change the x and y position from which the elements are drawn in canvas. An obstacles starting y coordinate changing by 12 pixels every second creates the sense that it is moving. By moving 1/5 of a pixel every 16 milliseconds this motion seems smoother.
   
-  I hope you enjoy playing it and for more information, I encourage you delve into the code. 
+  I hope you enjoy playing *Star Runner* and for more information, I encourage you delve into the code. 
   
   
   
