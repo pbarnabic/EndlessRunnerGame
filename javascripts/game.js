@@ -4,6 +4,7 @@ import Side from "./side.js";
 import Scorebox from "./scorebox.js";
 import Menu from "./menu.js";
 import RoadLine from "./roadLines.js";
+import Music from "./music.js"
 
 class Game{
 
@@ -19,8 +20,10 @@ class Game{
     this.side = new Side(this.canv,this.ctx);
     this.menu = new Menu(this.canv,this.ctx);
     this.roadLine = new RoadLine(this.canv,this.ctx);
+    this.music = new Music(this.canv,this.ctx);
 
     this.keyDown = this.keyDown.bind(this);
+    this.click = this.click.bind(this);
     this.update = this.update.bind(this);
     this.createNewObstacles = this.createNewObstacles.bind(this);
     this.play = this.play.bind(this);
@@ -30,8 +33,10 @@ class Game{
     this.handleCollision = this.handleCollision.bind(this);
     this.isOver = true;
     this.interval = null;
+    this.muted = false;
 
     document.addEventListener("keydown", this.keyDown);
+    this.canv.addEventListener("click", this.click);
     this.menu.draw();
   }
 
@@ -43,6 +48,9 @@ class Game{
   }
 
   keyDown(e){
+    if(e.keyCode == 77){
+      this.muted ? this.muted = false : this.muted = true;
+    }
     if (this.isOver){
       this.isOver = false;
       this.play();
@@ -52,8 +60,26 @@ class Game{
     }
   }
 
+  click(e){
+    console.log(e.clientX);
+    console.log(e.clientY);
+    if(e.clientX <= 430 && e.clientY <= 115){
+
+      this.muted ? this.muted = false : this.muted = true;
+    }
+  }
+
 
   update(){
+    if(!this.muted){
+      console.log("this ran");
+      this.music.play();
+      this.music.draw();
+    }else{
+      this.music.pause();
+
+    }
+
     if(!this.isOver){
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
@@ -65,6 +91,8 @@ class Game{
       this.roadLine.move();
       this.side.drawInnerLeft();
       this.side.drawInnerRight();
+      this.muted ? this.music.drawPlay() : this.music.draw();
+
 
       for(var i = this.obstacles.length - 1; i >= 0; i --){
         if(this.hasCollided(this.obstacles[i])){
