@@ -61,10 +61,8 @@ class Game{
   }
 
   click(e){
-    console.log(e.clientX);
-    console.log(e.clientY);
-    if(e.clientX <= 430 && e.clientY <= 115){
 
+    if(e.clientX <= 430 && e.clientY <= 115){
       this.muted ? this.muted = false : this.muted = true;
     }
   }
@@ -72,7 +70,6 @@ class Game{
 
   update(){
     if(!this.muted){
-      console.log("this ran");
       this.music.play();
       this.music.draw();
     }else{
