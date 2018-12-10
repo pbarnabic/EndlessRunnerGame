@@ -32,3 +32,10 @@ h1{
   margin-right: 10px;
   padding: 1px;
 }
+
+footer span{
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  color: white;
+}
