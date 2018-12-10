@@ -18,6 +18,7 @@ class Obstacle{
     let multiplier;
     this.x > this.canv.width / 2 ? multiplier = -3/2 : multiplier = 3/2;
     this.x == this.canv.width / 2 ? multiplier = 0 : multiplier;
+    this.x > this.canv.width / 2 - 50 && this.x < this.canv.width / 2 + 50 ? multiplier = 0 : multiplier;
     this.y += this.speed;
     this.x -= (4/3 * this.speed)/5 * multiplier;
     this.w += (1 + Math.sqrt(this.y)/240);
