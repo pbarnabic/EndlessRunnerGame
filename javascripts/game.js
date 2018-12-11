@@ -38,6 +38,7 @@ class Game{
     document.addEventListener("keydown", this.keyDown);
     this.canv.addEventListener("click", this.click);
     this.menu.draw();
+    this.music.draw();
   }
 
   play(){
@@ -61,9 +62,44 @@ class Game{
   }
 
   click(e){
-
-    if(e.clientX <= 430 && e.clientY <= 115){
+    console.log(e.clientX);
+    console.log(e.clientY);
+    if(e.clientX <= 430 && e.clientY <= 140){
       this.muted ? this.muted = false : this.muted = true;
+    }
+    if(!this.muted){
+
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+      this.side.drawLeft();
+      this.side.drawRight();
+      this.ship.draw();
+      this.scoreBox.draw();
+      this.roadLine.draw();
+      this.side.drawInnerLeft();
+      this.side.drawInnerRight();
+      this.music.play();
+      this.music.draw();
+      if (this.isOver == true){
+        this.menu.draw();
+      }
+    }else{
+
+      this.music.pause();
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+      this.side.drawLeft();
+      this.side.drawRight();
+      this.ship.draw();
+      this.scoreBox.draw();
+      this.roadLine.draw();
+      this.side.drawInnerLeft();
+      this.side.drawInnerRight();
+      this.music.drawPlay();
+      if (this.isOver == true){
+        this.menu.draw();
+      }
+
     }
   }
 
@@ -138,8 +174,6 @@ class Game{
     this.isOver = true;
     this.menu.draw();
     clearInterval(this.interval);
-
-
   }
 
   calcDistance(ob1,ob2){
