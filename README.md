@@ -6,7 +6,7 @@ Star Runner is built using JavaScript (ES6), Canvas, HTML5, and CSS. A live vers
 
 It's construction begins with the initialization of a Canvas element.
 
-```
+```html
 <!-- index.html -->
 
 <div id="alignment-div">
@@ -28,7 +28,7 @@ The main class, the Game class, upon its initialization grabs the canvas element
  Note that the RoadLine is a reference point that moves vertically across the screen from top to bottom at a regular pace to create the sense that the ship is moving. The Side Object is responsible for the creation of four lines, two of which go North-East and another two that go North-West. These side lines both indicate where the ship may and may not move and serve as addiitonal reference point by which a sense of motion is instilled in the user.
 
  An event listener, ```keyDown```, is added and serves one of two purposes depending on whether the game is in play or not. If the game is in play, the keyDown event results in the ship's move instance method being called. If the game is not in play, keyDown is responsible for beginning the new game through calling the play method of the game instance.
- ```
+ ```javascript
  //game.js
 
  keyDown(e){
@@ -44,7 +44,7 @@ The main class, the Game class, upon its initialization grabs the canvas element
 
   The Game class' ```play``` method is responsible for restarting the counter that is used to determine the user's score to 0, clearing all obstacles from the board, setting an Interval by which the movement in the game is generated, and updating the scoreboard to reflect the updated counter's value of zero.
 
-  ```
+  ```javascript
    //game.js
 
   play(){
@@ -63,7 +63,7 @@ The main class, the Game class, upon its initialization grabs the canvas element
 
   Each time it is called by ```setInterval```, ```update``` first redraws the canvas and all of the objects that appear in it.
 
-  ```
+  ```javascript
   this.ctx.fillStyle = "black";
   this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
   this.side.drawLeft();
@@ -78,13 +78,13 @@ The main class, the Game class, upon its initialization grabs the canvas element
 
 ```update``` then calls ```move``` on each of the variably positioned objects.
 
-  ```
+  ```javascript
   this.roadLine.move();
   this.obstacles[i].move();
   ```
   It should be noted that the obstacles are stored in an array instance belonging to the game class. The ```update``` method checks to see if the length of this array is less than 5, in which case it creates another obstacle. For more information pertaining to the creation of obstacles, checkout *obstacle.js* found in the *javascripts* folder.
 
-  ```
+  ```javascript
   if(this.obstacles.length < 5 && this.counter > 60 && this.counter % 60 == 0){
         this.createNewObstacles();
       }
@@ -94,7 +94,7 @@ The main class, the Game class, upon its initialization grabs the canvas element
 
   As mentioned earlier, ```update``` is responsible for ensuring that the game is not over. The game is over when the user's ship collides with an obstacle. To verify this is not the case, for each obstacle in the obstacles array, the method ```hasCollided``` is called.
 
-  ```
+  ```javascript
    hasCollided(obstacle){
      let dist = this.calcDistance(obstacle,this.ship);
      if (dist < this.ship.s + obstacle.w && obstacle.y <= this.ship.y){
