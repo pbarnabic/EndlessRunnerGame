@@ -8,6 +8,7 @@ class Side{
 
   drawLeft(){
     this.ctx.beginPath();
+    this.ctx.fillStyle = "orange";
     this.ctx.moveTo(1/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(3/8*this.canv.width,0);
     this.ctx.stroke();
@@ -15,6 +16,7 @@ class Side{
 
   drawInnerLeft(){
     this.ctx.beginPath();
+    this.ctx.fillStyle = "orange";
     this.ctx.moveTo(3/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(4/8*this.canv.width -50,0);
     this.ctx.stroke();
@@ -22,6 +24,7 @@ class Side{
 
   drawInnerRight(){
     this.ctx.beginPath();
+    this.ctx.fillStyle = "orange";
     this.ctx.moveTo(5/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(4/8*this.canv.width + 50,0);
     this.ctx.stroke();

@@ -68,9 +68,12 @@ class Game{
       this.muted ? this.muted = false : this.muted = true;
     }
     if(!this.muted){
-
+      if (this.isOver == true){
+        this.menu.draw();
+      }
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+      this.ctx.fillStyle = "orange";
       this.side.drawLeft();
       this.side.drawRight();
       this.ship.draw();
@@ -80,11 +83,11 @@ class Game{
       this.side.drawInnerRight();
       this.music.play();
       this.music.draw();
+
+    }else{
       if (this.isOver == true){
         this.menu.draw();
       }
-    }else{
-
       this.music.pause();
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
@@ -96,10 +99,6 @@ class Game{
       this.side.drawInnerLeft();
       this.side.drawInnerRight();
       this.music.drawPlay();
-      if (this.isOver == true){
-        this.menu.draw();
-      }
-
     }
   }
 
