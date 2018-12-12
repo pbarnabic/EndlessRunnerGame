@@ -22,7 +22,6 @@ class Game{
     this.ctx = this.canv.getContext("2d");
     this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
 
-    this.ship = new Ship(this.canv,this.ctx);
     this.scoreBox = new Scorebox(this.canv, this.ctx);
     this.obstacles = [];
     this.side = new Side(this.canv,this.ctx);
@@ -42,6 +41,7 @@ class Game{
     this.isOver = true;
     this.interval = null;
     this.muted = false;
+    this.voice = false;
 
     document.addEventListener("keydown", this.keyDown);
     this.canv.addEventListener("click", this.click);
@@ -55,19 +55,28 @@ class Game{
     this.obstacles = [];
     this.interval = setInterval(this.update, 1000 / 60);
     this.scoreBox.updateScore(this.counter);
-    this.recognition.start();
+    if(this.voice){
+      this.recognition.start();
+    }
+
+    this.ship = new Ship(this.canv,this.ctx,this.voice);
 
   }
 
   keyDown(e){
+
+
     if(e.keyCode == 77){
       this.muted ? this.muted = false : this.muted = true;
     }
     if (this.isOver){
+      if(e.keyCode == 86){
+        this.voice = true;
+      }
       this.isOver = false;
       this.play();
 
-    }else{
+    }else if(this.voice == false){
       this.ship.move(e);
     }
   }
@@ -123,14 +132,17 @@ class Game{
 
     if(!this.isOver){
 
-      this.recognition.onresult = (event) => {
-        let command = event.results[event.resultIndex][0].transcript.split().pop();
-        if(command.includes("l")){
-          this.ship.moveLeft();
-        }else if (command.includes("r")){
-          this.ship.moveRight();
+      if(this.voice){
+        this.recognition.onresult = (event) => {
+          let command = event.results[event.resultIndex][0].transcript.split().pop();
+          if(command.includes("l")){
+            this.ship.moveLeft();
+          }else if (command.includes("r")){
+            this.ship.moveRight();
+          }
         }
       }
+
 
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
@@ -175,7 +187,7 @@ class Game{
     }else{
       speed = 9;
     }
-    let obstacle = new Obstacle(this.canv,this.ctx,speed,this.obstacles.length);
+    let obstacle = new Obstacle(this.canv,this.ctx,speed,this.obstacles.length,this.voice);
     this.obstacles.push(obstacle);
   }
 
@@ -192,6 +204,7 @@ class Game{
     this.menu.draw();
     clearInterval(this.interval);
     this.recognition.abort();
+    this.voice = false;
   }
 
   calcDistance(ob1,ob2){

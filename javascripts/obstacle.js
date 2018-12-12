@@ -1,8 +1,9 @@
 class Obstacle{
 
-  constructor(canv,ctx,speed,length){
+  constructor(canv,ctx,speed,length,voice){
     this.canv = canv;
     this.ctx = ctx;
+    this.voice = voice;
     this.w = Math.floor(Math.random()*(10)+5);
     this.h = 40;
     this.leftWall = 360;
@@ -10,8 +11,11 @@ class Obstacle{
     this.x = this.leftWall + this.leftWallOffset;
     this.y = 0;
     this.multiplier = this.findMultiplier();
-    this.speed = 1;
-
+    if(this.voice){
+      this.speed = 1;
+    }else{
+      this.speed = speed;
+    }
   }
 
   move(){
@@ -21,7 +25,9 @@ class Obstacle{
     this.x > this.canv.width / 2 - 50 && this.x < this.canv.width / 2 + 50 ? multiplier = 0 : multiplier;
     this.y += this.speed;
     this.x -= (4/3 * this.speed)/5 * multiplier;
-    // this.w += (1 + Math.sqrt(this.y)/240);
+    if(this.voice == false){
+      this.w += (1 + Math.sqrt(this.y)/240);
+    }
     this.h += 1/3;
   }
 

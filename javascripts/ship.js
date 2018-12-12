@@ -1,6 +1,6 @@
 class Ship{
 
-  constructor(canv,ctx){
+  constructor(canv,ctx,voice){
     this.ctx = ctx;
     this.canv = canv;
     this.x = this.canv.width / 2,
@@ -8,6 +8,7 @@ class Ship{
     this.s = 25;
     this.moveLeft = this.moveLeft.bind(this);
     this.moveRight = this.moveRight.bind(this);
+    this.voice = voice;
 
   }
 
@@ -36,13 +37,23 @@ class Ship{
   }
 
   moveLeft(){
+
     if(this.x > 0 + this.s + 10 && this.x > this.canv.width * 2/8 - 40){
-      this.x -= 150;
+      if(this.voice){
+        this.x -= 150;
+      }else{
+        this.x -= 60;
+      }
+
     }
   }
   moveRight(){
     if(this.x < this.canv.width - this.s -  10 && this.x < this.canv.width * 6/8 + 40){
-      this.x += 150;
+      if(this.voice){
+        this.x += 150
+      }else{
+        this.x += 60
+      }
     }
   }
 
