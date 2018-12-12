@@ -9,6 +9,13 @@ import Music from "./music.js"
 class Game{
 
   constructor(){
+    window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    this.recognition = new window.SpeechRecognition();
+    this.recognition.continuous = true;
+    let grammar = '#JSGF V1.0; grammar directions; public <direction> = left | right;'
+    let speechRecognitionList = new SpeechGrammarList();
+    speechRecognitionList.addFromString(grammar, 1);
+    this.recognition.grammars = speechRecognitionList;
 
     this.canv = document.getElementById("gameCanvas");
     this.ctx = this.canv.getContext("2d");
@@ -39,6 +46,7 @@ class Game{
     this.canv.addEventListener("click", this.click);
     this.menu.draw();
     this.music.draw();
+
   }
 
   play(){
@@ -46,6 +54,8 @@ class Game{
     this.obstacles = [];
     this.interval = setInterval(this.update, 1000 / 60);
     this.scoreBox.updateScore(this.counter);
+    this.recognition.start();
+
   }
 
   keyDown(e){
@@ -62,7 +72,7 @@ class Game{
   }
 
   click(e){
-    
+
     if(e.clientX <= 430 && e.clientY <= 140){
       this.muted ? this.muted = false : this.muted = true;
     }
@@ -108,10 +118,19 @@ class Game{
       this.music.draw();
     }else{
       this.music.pause();
-
     }
 
     if(!this.isOver){
+
+      this.recognition.onresult = (event) => {
+        let command = event.results[event.resultIndex][0].transcript.split().pop();
+        if(command.includes("l")){
+          this.ship.moveLeft();
+        }else if (command.includes("r")){
+          this.ship.moveRight();
+        }
+      }
+
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
       this.side.drawLeft();
@@ -123,7 +142,6 @@ class Game{
       this.side.drawInnerLeft();
       this.side.drawInnerRight();
       this.muted ? this.music.drawPlay() : this.music.draw();
-
 
       for(var i = this.obstacles.length - 1; i >= 0; i --){
         if(this.hasCollided(this.obstacles[i])){
@@ -172,6 +190,7 @@ class Game{
     this.isOver = true;
     this.menu.draw();
     clearInterval(this.interval);
+    this.recognition.abort();
   }
 
   calcDistance(ob1,ob2){
