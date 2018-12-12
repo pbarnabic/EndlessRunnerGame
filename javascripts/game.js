@@ -10,10 +10,11 @@ class Game{
 
   constructor(){
     window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    window.SpeechGrammarList = window.webkitSpeechGrammarList || window.SpeechGrammarList;
     this.recognition = new window.SpeechRecognition();
     this.recognition.continuous = true;
     let grammar = '#JSGF V1.0; grammar directions; public <direction> = left | right;'
-    let speechRecognitionList = new SpeechGrammarList();
+    let speechRecognitionList = new window.SpeechGrammarList();
     speechRecognitionList.addFromString(grammar, 1);
     this.recognition.grammars = speechRecognitionList;
 
