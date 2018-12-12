@@ -13,7 +13,6 @@ It's construction begins with the initialization of a Canvas element.
       <canvas id="gameCanvas" width="960" height="360"></canvas>
 </div>
 ```
-
 The height and width were chosen as to help create a sense of depth. Note: this project does not use three.js or any other 3D libraries.
 
 From the above canvas element, the game is built in an object oriented fashion.
@@ -41,7 +40,6 @@ The main class, the Game class, upon its initialization grabs the canvas element
     }
   }
   ```
-
   The Game class' ```play``` method is responsible for restarting the counter that is used to determine the user's score to 0, clearing all obstacles from the board, setting an Interval by which the movement in the game is generated, and updating the scoreboard to reflect the updated counter's value of zero.
 
   ```javascript
@@ -54,7 +52,6 @@ The main class, the Game class, upon its initialization grabs the canvas element
     this.scoreBox.updateScore(this.counter);
   }
   ```
-
   You'll notice that the callback provided to setInterval is ```this.update``` a function we will examine further in the lines that follow. The interval provided, 1000/60, can be thought of as the framerate.
 
   The game class' ```update``` instance method is perhaps the single most important method in this program. It alone is responsible for the creation and movement of the obstacles, the movement of the ship, ensuring the game is not over, and incrementing the score.
@@ -89,7 +86,6 @@ The main class, the Game class, upon its initialization grabs the canvas element
         this.createNewObstacles();
       }
   ```
-
   The condition in the above snippet that checks to see if the counter is greater than 60 translates to the user having one second of leeway before any obstacles are generated upon the commencement of the game.
 
   As mentioned earlier, ```update``` is responsible for ensuring that the game is not over. The game is over when the user's ship collides with an obstacle. To verify this is not the case, for each obstacle in the obstacles array, the method ```hasCollided``` is called.
