@@ -84,6 +84,9 @@ class Game{
   click(e){
 
     if(e.clientX <= 430 && e.clientY <= 140){
+      console.log(e.clientX);
+      console.log(e.clientY);
+
       this.muted ? this.muted = false : this.muted = true;
     }
     if(!this.muted){
