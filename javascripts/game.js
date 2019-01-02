@@ -4,7 +4,8 @@ import Side from "./side.js";
 import Scorebox from "./scorebox.js";
 import Menu from "./menu.js";
 import RoadLine from "./roadLines.js";
-import Music from "./music.js"
+import Music from "./music.js";
+import Instructions from "./instructions.js";
 
 class Game{
 
@@ -28,6 +29,7 @@ class Game{
     this.menu = new Menu(this.canv,this.ctx);
     this.roadLine = new RoadLine(this.canv,this.ctx);
     this.music = new Music(this.canv,this.ctx);
+    this.instructions = new Instructions(this.canv,this.ctx);
 
     this.keyDown = this.keyDown.bind(this);
     this.click = this.click.bind(this);
@@ -64,14 +66,13 @@ class Game{
   }
 
   keyDown(e){
-
-
     if(e.keyCode == 77){
       this.muted ? this.muted = false : this.muted = true;
     }
     if (this.isOver){
       if(e.keyCode == 86){
         this.voice = true;
+        this.muted = true;
       }
       this.isOver = false;
       this.play();
@@ -84,44 +85,30 @@ class Game{
   click(e){
 
     if(e.clientX <= 430 && e.clientY <= 140){
-      console.log(e.clientX);
-      console.log(e.clientY);
-
       this.muted ? this.muted = false : this.muted = true;
     }
+
+    if (this.isOver == true){
+      this.menu.draw();
+    }
+
     if(!this.muted){
-      if (this.isOver == true){
-        this.menu.draw();
-      }
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
-      this.ctx.fillStyle = "orange";
-      this.side.drawLeft();
-      this.side.drawRight();
-      this.ship.draw();
-      this.scoreBox.draw();
-      this.roadLine.draw();
-      this.side.drawInnerLeft();
-      this.side.drawInnerRight();
       this.music.play();
       this.music.draw();
-
     }else{
-      if (this.isOver == true){
-        this.menu.draw();
-      }
       this.music.pause();
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
-      this.side.drawLeft();
-      this.side.drawRight();
-      this.ship.draw();
-      this.scoreBox.draw();
-      this.roadLine.draw();
-      this.side.drawInnerLeft();
-      this.side.drawInnerRight();
       this.music.drawPlay();
     }
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
+    this.ctx.fillStyle = "orange";
+
+    this.side.draw();
+    this.ship.draw();
+    this.scoreBox.draw();
+    this.roadLine.draw();
+
   }
 
 
@@ -149,14 +136,21 @@ class Game{
 
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
-      this.side.drawLeft();
-      this.side.drawRight();
+      this.side.draw();
       this.ship.draw();
       this.scoreBox.draw();
       this.roadLine.draw();
       this.roadLine.move();
-      this.side.drawInnerLeft();
-      this.side.drawInnerRight();
+
+      if(this.counter < 150){
+        console.log("the counter is less than 1560");
+        if(this.voice){
+          this.instructions.drawVoice();
+        }else{
+          this.instructions.drawRegular();
+        }
+      }
+
       this.muted ? this.music.drawPlay() : this.music.draw();
 
       for(var i = this.obstacles.length - 1; i >= 0; i --){

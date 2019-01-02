@@ -12,7 +12,6 @@ class Menu{
 
     this.ctx.font = "20px Arial";
     this.ctx.strokeText("Press Any Key to Start!",this.canv.width / 3 + 65, 2 * this.canv.height / 3);
-    this.ctx.font = "20px Arial";
     this.ctx.strokeText("Press V to Play With Your Voice",this.canv.width / 3 + 22, 2 * this.canv.height / 3 + 50);
   }
 }

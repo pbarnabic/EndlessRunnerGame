@@ -5,32 +5,30 @@ class Side{
     this.ctx = ctx;
   }
 
+  draw(){
 
-  drawLeft(){
+    //left
     this.ctx.beginPath();
     this.ctx.fillStyle = "orange";
     this.ctx.moveTo(1/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(3/8*this.canv.width,0);
     this.ctx.stroke();
-  }
 
-  drawInnerLeft(){
+    //inner left
     this.ctx.beginPath();
     this.ctx.fillStyle = "orange";
     this.ctx.moveTo(3/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(4/8*this.canv.width -50,0);
     this.ctx.stroke();
-  }
 
-  drawInnerRight(){
+    //inner right
     this.ctx.beginPath();
     this.ctx.fillStyle = "orange";
     this.ctx.moveTo(5/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(4/8*this.canv.width + 50,0);
     this.ctx.stroke();
-  }
 
-  drawRight(){
+    //right
     this.ctx.beginPath();
     this.ctx.moveTo(7/8*this.canv.width,this.canv.height);
     this.ctx.lineTo(5/8*this.canv.width ,0);
