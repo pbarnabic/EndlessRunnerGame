@@ -142,8 +142,7 @@ class Game{
       this.roadLine.draw();
       this.roadLine.move();
 
-      if(this.counter < 150){
-        console.log("the counter is less than 1560");
+      if(this.counter < 150){        
         if(this.voice){
           this.instructions.drawVoice();
         }else{
